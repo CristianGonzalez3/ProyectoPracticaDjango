@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load static %} <!-- Asegúrate de tener esta línea al inicio -->
+
+{% block title %} Iniciar Sesión {% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+<form action="." method="POST" novalidate>
+  {% csrf_token %}
+
+  <div class="card">
+      <div class="card-body">
+          <h5 class="card-title">Ingrese sus credenciales</h5>
+
+          {{ form | crispy }}
+      </div>
+      
+      <div class="card-footer">
+          <button class="btn btn-primary float-end" type="submit">Iniciar Sesión</button>
+      </div>
+  </div>
+</form>
+
+  <div class="login-container">
+    <div class="logo">
+      <img src="{% static 'img/logo.jpg' %}" alt="Logo de EVERLINK">
+    </div>
+    
+    <div class="form-container">
+      <h1>Bienvenido a EVERLINK</h1>
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <label for="username">Nombre de Usuario</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" name="password" required>
+        <input type="submit" value="Acceder a la Plataforma">
+      </form>
+      <a href="#">¿Olvidaste tu nombre de usuario o contraseña?</a>
+    </div>
+  </div>
+{% endblock %}
